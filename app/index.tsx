@@ -1,14 +1,18 @@
+import { getLatestGames } from "@/lib/metacritic";
 import { StatusBar } from "expo-status-bar";
+import { useEffect, useState } from "react";
 import {
   Button,
   Image,
   Pressable,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
   Text,
   TouchableHighlight,
   View,
 } from "react-native";
-
-const icon = require("../assets/images/icon.png");
+import Constants from "expo-constants";
 
 export default function Index() {
   return (
@@ -20,38 +24,39 @@ export default function Index() {
         backgroundColor: "#09f",
       }}
     >
-      <Image
-        fadeDuration={10}
-        source={icon}
-        style={{ width: 200, height: 100 }}
-        resizeMode="center"
-      />
-      <Text style={{ textAlign: "center" }}>
-        Edit app/index.tsx to edit this screen.
-      </Text>
-
       <StatusBar backgroundColor="#09f" style="auto" />
 
-      <Pressable
-        onPress={() => alert("hola")}
-        style={({ pressed }) => [
-          {
-            backgroundColor: pressed ? "blue" : "white",
-          },
-        ]}
-      >
-        {({ pressed }) => (
-          <Text
-            style={{
-              textAlign: "center",
-              fontWeight: 600,
-              fontSize: 14,
-            }}
-          >
-            {pressed ? "Pressed!" : "Press Me"}
-          </Text>
-        )}
-      </Pressable>
+      <SafeAreaView>
+        <View style={styles.container}>
+          {new Array(20).fill("null").map((game) => (
+            <View>
+              <Image
+                source={{
+                  uri: "https://www.nintendo.com/eu/media/images/10_share_images/games_15/gamecube_12/SI_GCN_TheLegendOfZeldaTheWindWaker_image1600w.jpg",
+                }}
+                resizeMode="center"
+                style={styles.image}
+              />
+            </View>
+          ))}
+        </View>
+      </SafeAreaView>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#000",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingTop: Constants.statusBarHeight,
+    gap: 10,
+  },
+  image: {
+    width: 107,
+    height: 147,
+    borderRadius: 10,
+  },
+});
